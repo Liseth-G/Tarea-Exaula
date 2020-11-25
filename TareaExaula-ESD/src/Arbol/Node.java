@@ -107,17 +107,27 @@ public class Node {
         con.conector();
         
         String SQL = "UPDATE tabla SET preOrden= ? WHERE id = ?";
-        PreparedStatement pst= con.prepareStatement(SQL);
+        PreparedStatement pst;
+        pst= con.prepareStatement(SQL);
         pst.setString(1,valor);
         pst.setInt(2, indice);
         pst.execute();
+        indice++;
         System.out.println(valor);
         if (izdo != null) {
-            indice++;
+            //indice++;
+            pst= con.prepareStatement(SQL);
+        pst.setString(1,valor);
+        pst.setInt(2, indice);
+        pst.execute();
             izdo.printPreOrder(indice++);
         }
         if (dcho != null) {
-            indice++;
+            //indice++;
+            pst= con.prepareStatement(SQL);
+        pst.setString(1,valor);
+        pst.setInt(2, indice);
+        pst.execute();
             dcho.printPreOrder(indice++);
         }
     }
