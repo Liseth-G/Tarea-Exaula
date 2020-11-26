@@ -59,7 +59,7 @@ public class PruebaArbol {
   //pA.consultaTabla();//----------------------------------
 
  System.out.println("Impresión del árbol en postorden\n");
- arbol.printPosOrder();
+ arbol.printPosOrden(id);
  //pA.consultaTabla();//----------------------------------
  
  valor = JOptionPane.showInputDialog(null, "Digite el nombre que desea buscar en el arbol:");

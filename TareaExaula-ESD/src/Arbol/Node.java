@@ -115,7 +115,6 @@ public class Node {
         indice++;
         System.out.println(valor);
         if (izdo != null) {
-            //indice++;
             pst= con.prepareStatement(SQL);
         pst.setString(1,valor);
         pst.setInt(2, indice);
@@ -123,7 +122,6 @@ public class Node {
             izdo.printPreOrder(indice++);
         }
         if (dcho != null) {
-            //indice++;
             pst= con.prepareStatement(SQL);
         pst.setString(1,valor);
         pst.setInt(2, indice);
@@ -132,13 +130,38 @@ public class Node {
         }
     }
     
-    public void printPosOrder() {
+    public void printPosOrden(int indice) throws SQLException {
+        Conexion con = new Conexion();
+        con.conector();
+        
+        String SQL = "UPDATE tabla SET posOrden= ? WHERE id = ?";
+        PreparedStatement pst;
+        pst= con.prepareStatement(SQL);
+        pst.setString(1,valor);
+        pst.setInt(2, indice);
+        pst.execute();
+        
         if (izdo != null) {
-            izdo.printPosOrder();
+            pst= con.prepareStatement(SQL);
+            pst.setString(1,valor);
+            pst.setInt(2, indice);
+            pst.execute();
+            izdo.printPosOrden(indice++);
         }
         if (dcho != null) {
-            dcho.printPosOrder();
+            pst= con.prepareStatement(SQL);
+            pst.setString(1,valor);
+            pst.setInt(2, indice);
+            pst.execute();
+        
+            dcho.printPosOrden(indice++);
         }
+        //indice++;
+        pst= con.prepareStatement(SQL);
+        pst.setString(1,valor);
+        pst.setInt(2, indice);
+        pst.execute();
+        indice++;
         System.out.println(valor);
     } 
     
