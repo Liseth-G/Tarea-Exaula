@@ -34,33 +34,51 @@ public class PruebaArbol {
  {
  if (arbol==null)
  {
- valor = JOptionPane.showInputDialog(null, "Digite un nombre para la raíz:");;
+ valor = JOptionPane.showInputDialog(null, "Digite el nombre del alumno primer alumno a inscribir(raíz):");;
  System.out.println(valor);
  arbol = new Node(valor);
  }
  else
  {
- valor = JOptionPane.showInputDialog(null, "Digite el nombre a introducir:");
+ valor = JOptionPane.showInputDialog(null, "Digite el nombre del alumno a inscribir:");
  
  System.out.println(valor);
  arbol.Adicionar(valor);
  }
- resp =Integer.parseInt(JOptionPane.showInputDialog(null, "¿Desea introducir otro nombre? 1: Si, 2: No"));
+ resp =Integer.parseInt(JOptionPane.showInputDialog(null, "¿Desea inscribir otro alumno? 1: Si, 2: No"));
  conti = resp == 1;
  }
 
+ int ord;//almacena el tipo de orden a imprimir 
+ do{
+     ord=Integer.parseInt(JOptionPane.showInputDialog("Consulta","¿En que orden desea ver el árbol?"
+         + "\n1:EnOrden \n2: PreOrden \n3: PosOrden"));
+     if(ord==1){
+     System.out.println("Impresión del árbol en orden\n");
+     arbol.printInOrden(id);
+     pA.consultaTabla("inOrden");//----------------------------------
+     }else{
+         if(ord==2){
+         System.out.println("Impresión del árbol en preorden\n");
+         arbol.printPreOrder(id);
+         pA.consultaTabla("preOrden");//----------------------------------
+         }else{
+         if(ord==3){
+             System.out.println("Impresión del árbol en postorden\n");
+             arbol.printPosOrden(id);
+             pA.consultaTabla("posOrden");//----------------------------------
+         }else{
+             JOptionPane.showMessageDialog(null,"Seleccione una opción valida");
+         }
+     }
+     }
+ }while(ord==1 || ord==2 || ord==3);//mientras no seleccione una opción correcta
  
- System.out.println("Impresión del árbol en orden\n");
- arbol.printInOrden(id);
- //pA.consultaTabla();//----------------------------------
  
- System.out.println("Impresión del árbol en preorden\n");
-  arbol.printPreOrder(id);
-  //pA.consultaTabla();//----------------------------------
+ 
+ 
 
- System.out.println("Impresión del árbol en postorden\n");
- arbol.printPosOrden(id);
- //pA.consultaTabla();//----------------------------------
+ 
  
  valor = JOptionPane.showInputDialog(null, "Digite el nombre que desea buscar en el arbol:");
  r=arbol.buscar(valor);
@@ -73,7 +91,7 @@ public class PruebaArbol {
   
   
   /*MÉTODO PARA REALIZAR UNA CONSULTA A UNA TABLA MYSQL*/
-        private void consultaTabla() {
+        private void consultaTabla(String orden) {
             Conexion con = new Conexion();
             con.conector();
             
@@ -81,7 +99,6 @@ public class PruebaArbol {
         ResultSet r = buscar("SELECT * FROM tabla ");
         try {
             
-           
             /*
             Hacemos un While para recorrer toda la tabla estudiantes
             y así poder sacar todos los registros de la tabla
@@ -91,7 +108,7 @@ public class PruebaArbol {
                         El tipo de dato (int,String...) de cada campo
                         El nombre de los campos de la tabla entre comillas doble " "
                 */
-                System.out.println(r.getString("preOrden"));
+                System.out.println(r.getString(orden));
             }
         } catch (SQLException ex) {
             Logger.getLogger(PruebaArbol.class.getName()).log(Level.SEVERE, null, ex);
