@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Arbol;
 
 import java.sql.Connection;
@@ -34,7 +29,7 @@ public class Conexion {
             con= (Connection) DriverManager.getConnection(url, user, pass);
             // Si la conexion fue exitosa mostramos un mensaje de conexion exitosa
             if (con!=null){
-                //JOptionPane.showMessageDialog(null,"Conexion establecida");
+                JOptionPane.showMessageDialog(null,"Conexion establecida");
             }
         }
         // Si la conexion NO fue exitosa mostramos un mensaje de error

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Arbol;
 
 import java.sql.PreparedStatement;
@@ -57,6 +52,7 @@ public class Node {
         this.dcho = dcho;
     }
     
+    //metodo para agregar un nuevo nodo al arbol
     public void Adicionar(String valor) throws SQLException{
         if(valor.compareToIgnoreCase(this.valor)<0){
             if(izdo != null){
@@ -72,9 +68,10 @@ public class Node {
         }
     }
     
+    //metodo para recorrer y guarddar el árbol EnOrden
     public void printInOrden(int indice) throws SQLException{
-        Conexion con = new Conexion();
-        con.conector();
+        Conexion con = new Conexion();//establecer conexión 
+        con.conector();               //con la base de datos
         
         String SQL = "UPDATE tabla SET inOrden= ? WHERE id = ?"; 
         PreparedStatement pst ;
@@ -86,7 +83,6 @@ public class Node {
             pst.execute();
             izdo.printInOrden(indice++);
         }
-        System.out.println(valor);
         
         pst= con.prepareStatement(SQL);
         pst.setString(1,valor);
@@ -102,6 +98,7 @@ public class Node {
         }
     }
     
+    //metodo para recorrer y guardar el árbol en preOrden
     public void printPreOrder(int indice) throws SQLException {
         Conexion con = new Conexion();
         con.conector();
@@ -113,7 +110,7 @@ public class Node {
         pst.setInt(2, indice);
         pst.execute();
         indice++;
-        System.out.println(valor);
+        
         if (izdo != null) {
             pst= con.prepareStatement(SQL);
         pst.setString(1,valor);
@@ -130,6 +127,7 @@ public class Node {
         }
     }
     
+    //metodo para recorrer y guardar el árbol en porOrden
     public void printPosOrden(int indice) throws SQLException {
         Conexion con = new Conexion();
         con.conector();
@@ -156,15 +154,15 @@ public class Node {
         
             dcho.printPosOrden(indice++);
         }
-        //indice++;
+        
         pst= con.prepareStatement(SQL);
         pst.setString(1,valor);
         pst.setInt(2, indice);
         pst.execute();
         indice++;
-        System.out.println(valor);
     } 
     
+    //metodo para buscar un dato en el árbol
     public boolean buscar(String v){
         boolean resp = false;
         if(!(v.equalsIgnoreCase(this.valor))){
