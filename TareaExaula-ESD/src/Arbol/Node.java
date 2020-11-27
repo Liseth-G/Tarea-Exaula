@@ -3,10 +3,6 @@ package Arbol;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-/**
- *
- * @author Amanda
- */
 public class Node {
     private String valor;
     private Node izdo;
@@ -21,7 +17,7 @@ public class Node {
          Conexion con = new Conexion();
          con.conector(); 
          
-         String SQL = "INSERT INTO tabla (guardados)VALUES (?)";
+         String SQL = "INSERT INTO alumnos (inscripcion)VALUES (?)";
          PreparedStatement pst = con.prepareStatement(SQL);
          pst.setString(1,valor);
          pst.execute();
@@ -69,11 +65,11 @@ public class Node {
     }
     
     //metodo para recorrer y guarddar el árbol EnOrden
-    public void printInOrden(int indice) throws SQLException{
+    public void inOrden(int indice) throws SQLException{
         Conexion con = new Conexion();//establecer conexión 
         con.conector();               //con la base de datos
         
-        String SQL = "UPDATE tabla SET inOrden= ? WHERE id = ?"; 
+        String SQL = "UPDATE alumnos SET inOrden= ? WHERE id = ?"; 
         PreparedStatement pst ;
         
         if(izdo != null ){
@@ -81,7 +77,7 @@ public class Node {
             pst.setString(1,valor);
             pst.setInt(2,indice);
             pst.execute();
-            izdo.printInOrden(indice++);
+            izdo.inOrden(indice++);
         }
         
         pst= con.prepareStatement(SQL);
@@ -94,16 +90,16 @@ public class Node {
             pst.setString(1,valor);
             pst.setInt(2,indice);
             pst.execute();
-            dcho.printInOrden(indice++);
+            dcho.inOrden(indice++);
         }
     }
     
     //metodo para recorrer y guardar el árbol en preOrden
-    public void printPreOrder(int indice) throws SQLException {
+    public void preOrder(int indice) throws SQLException {
         Conexion con = new Conexion();
         con.conector();
         
-        String SQL = "UPDATE tabla SET preOrden= ? WHERE id = ?";
+        String SQL = "UPDATE alumnos SET preOrden= ? WHERE id = ?";
         PreparedStatement pst;
         pst= con.prepareStatement(SQL);
         pst.setString(1,valor);
@@ -116,23 +112,23 @@ public class Node {
         pst.setString(1,valor);
         pst.setInt(2, indice);
         pst.execute();
-            izdo.printPreOrder(indice++);
+            izdo.preOrder(indice++);
         }
         if (dcho != null) {
             pst= con.prepareStatement(SQL);
         pst.setString(1,valor);
         pst.setInt(2, indice);
         pst.execute();
-            dcho.printPreOrder(indice++);
+            dcho.preOrder(indice++);
         }
     }
     
     //metodo para recorrer y guardar el árbol en porOrden
-    public void printPosOrden(int indice) throws SQLException {
+    public void posOrden(int indice) throws SQLException {
         Conexion con = new Conexion();
         con.conector();
         
-        String SQL = "UPDATE tabla SET posOrden= ? WHERE id = ?";
+        String SQL = "UPDATE alumnos SET posOrden= ? WHERE id = ?";
         PreparedStatement pst;
         pst= con.prepareStatement(SQL);
         pst.setString(1,valor);
@@ -144,7 +140,7 @@ public class Node {
             pst.setString(1,valor);
             pst.setInt(2, indice);
             pst.execute();
-            izdo.printPosOrden(indice++);
+            izdo.posOrden(indice++);
         }
         if (dcho != null) {
             pst= con.prepareStatement(SQL);
@@ -152,7 +148,7 @@ public class Node {
             pst.setInt(2, indice);
             pst.execute();
         
-            dcho.printPosOrden(indice++);
+            dcho.posOrden(indice++);
         }
         
         pst= con.prepareStatement(SQL);
